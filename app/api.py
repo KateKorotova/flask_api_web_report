@@ -2,6 +2,7 @@ from flask import request
 from flask_restful import Resource
 from app.utils import get_report, get_driver_list, get_driver_info, make_api_response
 from playhouse.shortcuts import model_to_dict
+import peewee
 
 
 class Report(Resource):
@@ -82,8 +83,9 @@ class Drivers(Resource):
             return {"message": "Version not supported"}, 400
 
         if driver_id:
-            driver_data = model_to_dict(get_driver_info(driver_id).get())
-            if not driver_data:
+            try:
+                driver_data = model_to_dict(get_driver_info(driver_id).get())
+            except peewee.DoesNotExist:
                 return {"message": "Driver ID not found"}, 404
             return make_api_response(driver_data, response_format)
 
