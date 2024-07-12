@@ -1,0 +1,9 @@
+flask
+pytest
+pandas
+flasgger
+flask_restful
+lxml
+peewee
+BeautifulSoup4
+dicttoxml

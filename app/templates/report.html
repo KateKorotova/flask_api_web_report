@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Racing Report{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Racing Report</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Team</th>
+            <th scope="col">
+                <a href="{{ url_for('main.report', order='asc' if order == 'desc' else 'desc') }}">
+                    Lap Time
+                    {% if order == 'asc' %}
+                        <i class="fas fa-arrow-up"></i>
+                    {% else %}
+                        <i class="fas fa-arrow-down"></i>
+                    {% endif %}
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in report %}
+            <tr>
+                <th scope="row">{{ row.place }}</th>
+                <td>{{ row.driver.name }}</td>
+                <td>{{ row.driver.team }}</td>
+                <td>{{ row.lap_time }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('main.drivers') }}" class="btn btn-primary">Drivers List</a>
+{% endblock %}

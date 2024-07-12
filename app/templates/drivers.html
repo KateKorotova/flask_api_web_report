@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Drivers List{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Drivers List</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">
+                <a href="{{ url_for('main.drivers', order='asc' if order == 'desc' else 'desc') }}">
+                    Driver Code
+                    {% if order == 'asc' %}
+                        <i class="fas fa-arrow-up"></i>
+                    {% else %}
+                        <i class="fas fa-arrow-down"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th scope="col">Driver Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for driver in drivers %}
+            <tr>
+                <td><a href="{{ url_for('main.drivers', driver_id=driver.abbr) }}">{{ driver.abbr }}</a></td>
+                <td>{{ driver.name }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('main.report') }}" class="btn btn-primary">Get full Racing Report</a>
+{% endblock %}
